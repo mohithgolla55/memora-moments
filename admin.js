@@ -285,6 +285,9 @@ function renderOrders(){
 
       <td>₹${order.profit}</td>
      
+      <td>₹${order.advance}</td>
+
+      <td>₹${order.remaining}</td>
 
       <td
         class="${
