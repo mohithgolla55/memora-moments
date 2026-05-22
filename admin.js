@@ -425,3 +425,25 @@ exportBtn.addEventListener("click", () => {
   );
 
 });
+window.checkPassword = function(){
+
+  const password =
+    document.getElementById("passwordInput").value;
+
+  if(password === "memora@123"){
+
+    document.getElementById("loginScreen")
+      .style.display = "none";
+
+    document.getElementById("mainDashboard")
+      .style.display = "block";
+
+  }
+
+  else{
+
+    alert("Wrong Password");
+
+  }
+
+}
