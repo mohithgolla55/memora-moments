@@ -117,6 +117,9 @@ addOrderBtn.addEventListener("click", async () => {
   const discount =
     Number(document.getElementById("discount").value) || 0;
 
+  const advance =
+  Number(document.getElementById("advance").value) || 0;
+
   const status =
     document.getElementById("status").value;
 
@@ -167,6 +170,9 @@ addOrderBtn.addEventListener("click", async () => {
 
   const profit =
     selling - rawCost;
+  
+  const remaining =
+  selling - advance;
 const currentDate =
   new Date().toLocaleString();
   const order = {
@@ -176,6 +182,8 @@ const currentDate =
     quantity,
     rawCost,
     selling,
+    advance,
+    remaining,
     profit,
     status,
     date: currentDate
