@@ -1,133 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Memora Admin</title>
 
-  <link rel="stylesheet" href="admin.css" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Memora Moments Admin
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="admin.css"
+  />
+
+  <!-- EXCEL -->
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+
+  <!-- HTML TO IMAGE -->
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 </head>
+
 <body>
-    <div id="loginScreen">
 
-  <div class="login-box">
+  <div class="container">
 
-    <h2>Memora Admin Login</h2>
+    <!-- HEADER -->
 
-    <input
-      type="password"
-      id="passwordInput"
-      placeholder="Enter Password"
-    />
+    <div class="top-header">
 
-    <button onclick="checkPassword()">
-      Login
-    </button>
+      <h1>
+        MEMORA MOMENTS
+      </h1>
 
-  </div>
+      <p>
+        Turning Memories Into Moments
+      </p>
 
-</div>
+    </div>
 
-  <div class="container" id="mainDashboard">
+    <!-- ANALYTICS -->
 
-    <h1>Memora Moments Admin</h1>
-
-    <!-- Dashboard Cards -->
     <div class="cards">
 
       <div class="card">
-        <h3>Total Orders</h3>
-        <p id="totalOrders">0</p>
+
+        <h3>
+          Total Orders
+        </h3>
+
+        <p id="totalOrders">
+          0
+        </p>
+
       </div>
 
       <div class="card">
-        <h3>Total Revenue</h3>
-        <p id="totalRevenue">₹0</p>
+
+        <h3>
+          Total Revenue
+        </h3>
+
+        <p id="totalRevenue">
+          Rs. 0
+        </p>
+
       </div>
 
       <div class="card">
-        <h3>Total Profit</h3>
-        <p id="totalProfit">₹0</p>
+
+        <h3>
+          Total Profit
+        </h3>
+
+        <p id="totalProfit">
+          Rs. 0
+        </p>
+
       </div>
 
       <div class="card">
-        <h3>Pending Orders</h3>
-        <p id="pendingOrders">0</p>
-    
+
+        <h3>
+          Pending Orders
+        </h3>
+
+        <p id="pendingOrders">
+          0
+        </p>
+
       </div>
-<div class="card">
-  <h3>Delivered</h3>
-  <p id="deliveredOrders">0</p>
-</div>
+
+      <div class="card">
+
+        <h3>
+          Delivered Orders
+        </h3>
+
+        <p id="deliveredOrders">
+          0
+        </p>
+
+      </div>
+
     </div>
 
-    <!-- Order Form -->
+    <!-- CUSTOMER DETAILS -->
+
     <div class="form-section">
 
-      <input type="text" id="customerName" placeholder="Customer Name" />
-
-      <select id="product">
-        <option value="4x6">4x6 (Maxi)</option>
-        <option value="6x8">6x8</option>
-        <option value="6x9">6x9</option>
-        <option value="8x12">8x12</option>
-        <option value="10x15">10x15</option>
-        <option value="12x18">12x18</option>
-        <option value="Polaroid">Polaroid</option>
-        <option value="Mug">Mug</option>
-      </select>
-
-      <input type="number" id="quantity" placeholder="Quantity" />
       <input
-  type="number"
-  id="discount"
-  placeholder="Discount"
-/>
-<input
-  type="number"
-  id="advance"
-  placeholder="Advance Paid"
-/>
+        type="text"
+        id="customerName"
+        placeholder="Customer Name"
+      />
+
+      <input
+        type="text"
+        id="customerNumber"
+        placeholder="Phone Number"
+      />
+
+      <input
+        type="number"
+        id="discount"
+        placeholder="Discount"
+      />
+
+      <input
+        type="number"
+        id="advance"
+        placeholder="Advance Amount"
+      />
 
       <select id="status">
-        <option value="Pending">Pending</option>
-        <option value="Delivered">Delivered</option>
+
+        <option value="Pending">
+          Pending
+        </option>
+
+        <option value="Delivered">
+          Delivered
+        </option>
+
       </select>
 
-      <button id="addOrderBtn">
-        Add Order
+    </div>
+
+    <!-- ADD ITEMS -->
+
+    <div class="items-box">
+
+      <h2>
+        Add Items
+      </h2>
+
+      <div class="item-form">
+
+        <select id="product">
+
+          <option value="4x6">
+            4x6 (Maxi)
+          </option>
+
+          <option value="6x8">
+            6x8
+          </option>
+
+          <option value="6x9">
+            6x9
+          </option>
+
+          <option value="8x12">
+            8x12
+          </option>
+
+          <option value="10x15">
+            10x15
+          </option>
+
+          <option value="12x18">
+            12x18
+          </option>
+
+          <option value="Polaroid">
+            Polaroid
+          </option>
+
+          <option value="Mug">
+            Mug
+          </option>
+
+        </select>
+
+        <input
+          type="number"
+          id="quantity"
+          placeholder="Quantity"
+        />
+
+        <button
+          type="button"
+          id="addItemBtn"
+        >
+          Add Item
+        </button>
+
+      </div>
+
+      <!-- ITEMS PREVIEW -->
+
+      <div id="itemsPreview">
+
+      </div>
+
+    </div>
+
+    <!-- TOTALS -->
+
+    <div class="totals-box">
+
+      <div class="total-card">
+
+        <h3>
+          Total Amount
+        </h3>
+
+        <p id="grandTotal">
+          Rs. 0
+        </p>
+
+      </div>
+
+      <div class="total-card">
+
+        <h3>
+          Remaining Due
+        </h3>
+
+        <p id="remainingAmount">
+          Rs. 0
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- CREATE ORDER -->
+
+    <div class="create-order-section">
+
+      <button
+        type="button"
+        id="createOrderBtn"
+      >
+        Create Combined Order
       </button>
 
     </div>
-<button id="exportBtn">
-  Export Excel
-</button>
-    <!-- Orders Table -->
-    <table>
 
-      <thead>
-        <tr>
-          <th>Customer</th>
-          <th>Product</th>
-          <th>Qty</th>
-          <th>Raw Cost</th>
-          <th>Selling</th>
-          <th>Profit</th>
-          <th>Advance</th>
-          <th>Remaining</th>
-          <th>Status</th>
-          <th>Delete</th>
-          <th>Date</th>
-        </tr>
-      </thead>
+    <!-- EXPORT -->
 
-      <tbody id="ordersTable">
-      </tbody>
+    <div class="export-section">
 
-    </table>
+      <button
+        type="button"
+        id="exportBtn"
+      >
+        Export Excel
+      </button>
+
+    </div>
+
+    <!-- ORDERS TABLE -->
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Customer
+            </th>
+
+            <th>
+              Phone
+            </th>
+
+            <th>
+              Items
+            </th>
+
+            <th>
+              Discount
+            </th>
+
+            <th>
+              Advance
+            </th>
+
+            <th>
+              Remaining
+            </th>
+
+            <th>
+              Final Amount
+            </th>
+
+            <th>
+              Profit
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th>
+              Date
+            </th>
+
+            <th>
+              WhatsApp
+            </th>
+
+            <th>
+              Invoice
+            </th>
+
+            <th>
+              Delete
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="ordersTable">
+
+        </tbody>
+
+      </table>
+
+    </div>
 
   </div>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
- <script type="module" src="admin.js"></script>
+
+  <!-- HIDDEN JPG INVOICE -->
+
+  <div
+    id="invoiceTemplate"
+    style="
+
+      width:800px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #050505,
+        #151515
+      );
+
+      padding:50px;
+
+      border-radius:30px;
+
+      position:absolute;
+
+      left:-9999px;
+
+      top:0;
+
+      color:white;
+
+      font-family:Poppins,sans-serif;
+
+      border:
+      2px solid rgba(247,213,140,0.25);
+
+    "
+  >
+
+    <!-- HEADER -->
+
+    <div
+      style="
+        text-align:center;
+        margin-bottom:40px;
+      "
+    >
+
+      <h1
+        style="
+          font-size:48px;
+          margin-bottom:10px;
+          background:
+          linear-gradient(
+            to right,
+            #f7d58c,
+            #ffb6c1
+          );
+
+          -webkit-background-clip:text;
+
+          -webkit-text-fill-color:transparent;
+        "
+      >
+        MEMORA MOMENTS
+      </h1>
+
+      <p
+        style="
+          color:#ffcf8a;
+          font-size:18px;
+        "
+      >
+        Turning Memories Into Moments
+      </p>
+
+    </div>
+
+    <!-- CUSTOMER -->
+
+    <div
+      style="
+        background:
+        rgba(255,255,255,0.05);
+
+        border:
+        1px solid rgba(247,213,140,0.15);
+
+        border-radius:24px;
+
+        padding:30px;
+
+        margin-bottom:30px;
+      "
+    >
+
+      <h2
+        style="
+          color:#f7d58c;
+          margin-bottom:20px;
+        "
+      >
+        Customer Details
+      </h2>
+
+      <p
+        id="invoiceCustomer"
+        style="
+          margin-bottom:15px;
+          font-size:20px;
+        "
+      >
+        Customer
+      </p>
+
+      <p
+        id="invoicePhone"
+        style="
+          font-size:20px;
+        "
+      >
+        Phone
+      </p>
+
+    </div>
+
+    <!-- ITEMS -->
+
+    <div
+      style="
+        background:
+        rgba(255,255,255,0.05);
+
+        border:
+        1px solid rgba(247,213,140,0.15);
+
+        border-radius:24px;
+
+        padding:30px;
+
+        margin-bottom:30px;
+      "
+    >
+
+      <h2
+        style="
+          color:#f7d58c;
+          margin-bottom:20px;
+        "
+      >
+        Ordered Items
+      </h2>
+
+      <div
+        id="invoiceItems"
+        style="
+          font-size:20px;
+          line-height:2;
+        "
+      >
+
+      </div>
+
+    </div>
+
+    <!-- TOTAL -->
+
+    <div
+      style="
+        background:
+        linear-gradient(
+          135deg,
+          rgba(247,213,140,0.12),
+          rgba(255,182,193,0.08)
+        );
+
+        border-radius:24px;
+
+        padding:35px;
+
+        text-align:center;
+
+        margin-bottom:35px;
+      "
+    >
+
+      <h2
+        style="
+          color:#f7d58c;
+          margin-bottom:15px;
+        "
+      >
+        Final Amount
+      </h2>
+
+      <h1
+        id="invoiceAmount"
+        style="
+          font-size:52px;
+        "
+      >
+        Rs. 0
+      </h1>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div
+      style="
+        text-align:center;
+        margin-top:40px;
+      "
+    >
+
+      <p
+        style="
+          color:#ffb6c1;
+          font-size:22px;
+        "
+      >
+        Thank You For Choosing
+        Memora Moments
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- MAIN JS -->
+
+  <script
+    type="module"
+    src="admin.js"
+  ></script>
+
 </body>
+
 </html>
